@@ -3,6 +3,9 @@ import Sizes from './Utils/Sizes'
 import Camera from './Camera'
 import Renderer from './Renderer'
 import Time from './Utils/Time'
+import World from './World/World'
+import Resources from './Utils/Resources'
+import assets from './Utils/assets'
 export default class Experience {
   static instance
   constructor(canvas) {
@@ -15,7 +18,9 @@ export default class Experience {
     this.time = new Time()
     this.scene = new THREE.Scene()
     this.camera = new Camera()
-    this.render = new Renderer()
+    this.renderer = new Renderer()
+    this.resources = new Resources(assets)
+    this.world = new World()
     this.time.on('update', () => {
       this.update()
     })
@@ -26,11 +31,13 @@ export default class Experience {
 
   update() {
     this.camera.update()
-    this.render.update()
+    this.world.update()
+    this.renderer.update()
   }
 
   resize() {
     this.camera.resize()
-    this.render.resize()
+    this.world.resize()
+    this.renderer.resize()
   }
 }
