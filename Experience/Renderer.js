@@ -7,7 +7,6 @@ export default class Renderer {
     this.scene = this.experience.scene
     this.canvas = this.experience.canvas
     this.camera = this.experience.camera
-    console.log(this.camera, this.camera.perspectiveCamera)
     this.setRenderer()
   }
 

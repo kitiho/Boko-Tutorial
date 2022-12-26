@@ -15,26 +15,29 @@ export default class Camera {
   createPerspectiveCamera() {
     this.perspectiveCamera = new THREE.PerspectiveCamera(35, this.sizes.aspect, 0.1, 1000)
     this.scene.add(this.perspectiveCamera)
-    this.perspectiveCamera.position.z = 5
+    this.perspectiveCamera.position.x = 1
+    this.perspectiveCamera.position.y = 2
+    this.perspectiveCamera.position.z = 10
   }
 
   createOrthographicCamera() {
-    this.frustrum = 5
     this.orthographicCamera = new THREE.OrthographicCamera(
-      (-this.sizes.aspect * this.frustrum) / 2,
-      (this.sizes.aspect * this.frustrum) / 2,
-      this.frustrum / 2,
-      -this.frustrum / 2,
-      -100,
-      100,
+      (-this.sizes.aspect * this.sizes.frustrum) / 2,
+      (this.sizes.aspect * this.sizes.frustrum) / 2,
+      this.sizes.frustrum / 2,
+      -this.sizes.frustrum / 2,
+      -10,
+      10,
     )
-    this.scene.add(this.perspectiveCamera)
+    this.scene.add(this.orthographicCamera)
+
+    this.helper = new THREE.CameraHelper(this.orthographicCamera)
+    this.scene.add(this.helper)
 
     const size = 10
     const divisions = 10
     const gridHelper = new THREE.GridHelper(size, divisions)
     this.scene.add(gridHelper)
-
     const axesHelper = new THREE.AxesHelper(10)
     this.scene.add(axesHelper)
   }
@@ -58,5 +61,8 @@ export default class Camera {
 
   update() {
     this.controls.update()
+    // this.helper.matrixWorldNeedsUpdate = true
+    // this.helper.position.copy(this, this.orthographicCamera.position)
+    // this.helper.rotation.copy(this, this.orthographicCamera.rotation)
   }
 }

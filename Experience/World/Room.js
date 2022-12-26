@@ -41,8 +41,8 @@ export default class Room {
     this.actualRoom.scale.set(0.1, 0.1, 0.1)
   }
 
-  seAnimation() {
-    this.mixer = new THREE.AnimationMixer(this.room)
+  setAnimation() {
+    this.mixer = new THREE.AnimationMixer(this.actualRoom)
     this.swim = this.mixer.clipAction(this.room.animations[0])
     this.swim.play()
   }
